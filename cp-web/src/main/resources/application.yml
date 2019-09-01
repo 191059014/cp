@@ -1,0 +1,10 @@
+server:
+  port: 8888
+spring:
+  resources:
+    static-locations: classpath:/static
+  mvc:
+    static-path-pattern: /**
+    view:
+      prefix: /view/
+      suffix: .html
