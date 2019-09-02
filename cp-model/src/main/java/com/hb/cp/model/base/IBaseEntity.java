@@ -11,9 +11,4 @@ import java.io.Serializable;
  */
 public interface IBaseEntity extends Serializable, Cloneable {
 
-    /**
-     * 重置
-     */
-    public void reset();
-
 }

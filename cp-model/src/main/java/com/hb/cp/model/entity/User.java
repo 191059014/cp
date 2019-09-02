@@ -17,8 +17,8 @@ import javax.persistence.*;
 public class User extends AbstractConnectEntity {
 
     @Id
-    @GeneratedValue(generator = "userId")
-    @GenericGenerator(name = "userId", strategy = "uuid")
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     private String userId;
 
     @Column
@@ -38,5 +38,13 @@ public class User extends AbstractConnectEntity {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                "} " + super.toString();
     }
 }

@@ -1,6 +1,8 @@
 server:
   port: 8888
 spring:
+  profiles:
+      active: dev
   resources:
     static-locations: classpath:/static
   mvc:
@@ -8,14 +10,7 @@ spring:
     view:
       prefix: /view/
       suffix: .html
-  datasource:
-      url: jdbc:mysql://localhost:3306/cpweb
-      username: root
-      password: root3306
-      driverClassName: com.mysql.jdbc.Driver
-  jpa:
-      database: MYSQL
-      hibernate:
-        ddl-auto: update
-        dialect: org.hibernate.dialect.MySQL5Dialect
-      show-sql: true
+
+
+
+

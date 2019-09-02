@@ -4,12 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("controller/login")
-public class LoginController {
+public class DefaultController {
 
-    @RequestMapping("/login")
+    @RequestMapping("/")
     public String home() {
-        return "login";
+        return "home";
     }
 
 }

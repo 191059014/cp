@@ -1,7 +1,5 @@
 package com.hb.cp.model.base;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
@@ -13,7 +11,6 @@ import javax.persistence.MappedSuperclass;
  * @date 2019年09月02日 10时54分
  */
 @MappedSuperclass
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class AbstractConnectEntity extends AbstractTimestampEntity {
 
     /**

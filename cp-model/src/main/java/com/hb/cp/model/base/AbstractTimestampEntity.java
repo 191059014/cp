@@ -1,7 +1,6 @@
 package com.hb.cp.model.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -15,7 +14,6 @@ import java.util.Date;
  * @date 2019年09月02日 10时14分
  */
 @MappedSuperclass
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class AbstractTimestampEntity extends AbstractBaseEntity {
 
     /**
@@ -87,11 +85,10 @@ public abstract class AbstractTimestampEntity extends AbstractBaseEntity {
     }
 
     @Override
-    public void reset() {
-        this.createUserId = null;
-        this.createDate = null;
-        this.updateUserId = null;
-        this.updateDate = null;
+    public void setDefault() {
+        super.setDefault();
+        this.createDate = new Date();
+        this.updateDate = new Date();
+        // TODO
     }
-
 }
