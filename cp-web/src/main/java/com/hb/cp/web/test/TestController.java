@@ -31,7 +31,8 @@ public class TestController {
     @RequestMapping("/test")
     public String test() {
         User user = new User();
-        user.setUserName("huangbiao");
+        user.setUserId("34e71923-311c-40d8-a00d-a0567d0c301d");
+        user.setUserName("huangbiao1");
         user.setDefault();
         Object save = userService.addUser(user);
         System.out.println(save);

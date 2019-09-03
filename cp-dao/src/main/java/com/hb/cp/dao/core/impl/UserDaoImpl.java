@@ -17,7 +17,7 @@ public class UserDaoImpl extends BaseRepositoryImpl<String, User> implements IUs
 
     @Override
     public User addUser(User user) {
-        return save(user);
+        return findByPrimaryKey(User.class,user.getUserId());
     }
 
 }

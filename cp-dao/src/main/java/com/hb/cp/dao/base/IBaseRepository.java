@@ -19,7 +19,7 @@ public interface IBaseRepository<ID, T> {
      */
     T save(T t);
 
-    T update(T t);
+    T addOrUpdate(T t);
 
     void delete(T t);
 

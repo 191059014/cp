@@ -26,13 +26,13 @@ public class BaseRepositoryImpl<ID extends Serializable, T extends IBaseEntity> 
     }
 
     @Override
-    public T update(T t) {
+    public T addOrUpdate(T t) {
         return em.merge(t);
     }
 
     @Override
     public void delete(T t) {
-        em.remove(t);
+        em.remove(em.merge(t));
     }
 
     @Override
