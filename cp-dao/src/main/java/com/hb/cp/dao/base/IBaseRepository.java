@@ -1,6 +1,9 @@
 package com.hb.cp.dao.base;
 
+import com.hb.cp.dao.constant.enums.QueryType;
+
 import javax.persistence.Query;
+import java.util.List;
 
 /**
  * ========== 操作数据库Repository祖先 ==========
@@ -11,15 +14,9 @@ import javax.persistence.Query;
  */
 public interface IBaseRepository<ID, T> {
 
-    /**
-     * 保存实体
-     *
-     * @param t 对象
-     * @return Object
-     */
     T save(T t);
 
-    T addOrUpdate(T t);
+    T saveOrUpdate(T t);
 
     void delete(T t);
 
@@ -27,8 +24,19 @@ public interface IBaseRepository<ID, T> {
 
     boolean contains(T t);
 
+    List findByCondition(String dml, QueryType queryType, Object... params);
+
+    List findByCondition(String dml, String sort, QueryType queryType, Object... params);
+
+    Long findCount(String dml, QueryType queryType, Object... params);
+
+    List findPageList(String dml, String sort, QueryType queryType, Integer startRow, Integer pageSize, Object... params);
+
     Query createQuery(String hql);
+
+    Query createQuery(String hql, String sort);
 
     Query createNativeQuery(String sql);
 
+    Query createNativeQuery(String sql, String sort);
 }
