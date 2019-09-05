@@ -39,4 +39,12 @@ public interface IBaseRepository<ID, T> {
     Query createNativeQuery(String sql);
 
     Query createNativeQuery(String sql, String sort);
+
+    Integer executeUpdate(String dml, QueryType queryType, Object... params);
+
+    void flush();
+
+    void refresh(T t);
+
+    void clear();
 }
