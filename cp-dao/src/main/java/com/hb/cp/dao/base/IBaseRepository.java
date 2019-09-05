@@ -12,17 +12,17 @@ import java.util.List;
  * @version com.hb.cp.dao.base.IBaseRepository.java, v1.0
  * @date 2019年09月02日 21时22分
  */
-public interface IBaseRepository<ID, T> {
+public interface IBaseRepository {
 
-    T save(T t);
+    <T> T save(T t);
 
-    T saveOrUpdate(T t);
+    <T> T saveOrUpdate(T t);
 
-    void delete(T t);
+    void delete(Object delObj);
 
-    T findByPrimaryKey(Class<T> aClass, ID id);
+    <T> T findByPrimaryKey(Class<T> aClass, Object id);
 
-    boolean contains(T t);
+    boolean contains(Object obj);
 
     List findByCondition(String dml, QueryType queryType, Object... params);
 
@@ -44,7 +44,7 @@ public interface IBaseRepository<ID, T> {
 
     void flush();
 
-    void refresh(T t);
+    void refresh(Object obj);
 
     void clear();
 }

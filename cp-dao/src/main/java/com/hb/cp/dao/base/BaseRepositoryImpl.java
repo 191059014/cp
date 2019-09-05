@@ -1,12 +1,12 @@
 package com.hb.cp.dao.base;
 
 import com.hb.cp.dao.constant.enums.QueryType;
-import com.hb.cp.model.base.IBaseEntity;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +36,9 @@ import java.util.List;
  * @version com.hb.cp.dao.base.BaseRepositoryImpl.java, v1.0
  * @date 2019年09月02日 21时22分
  */
-public class BaseRepositoryImpl<ID extends Serializable, T extends IBaseEntity> implements IBaseRepository<ID, T> {
+@Primary
+@Repository("baseRepository")
+public class BaseRepositoryImpl implements IBaseRepository {
 
     /**
      * entityManager
@@ -59,7 +61,7 @@ public class BaseRepositoryImpl<ID extends Serializable, T extends IBaseEntity> 
      * @return 保存后的对象
      */
     @Override
-    public T save(T t) {
+    public <T> T save(T t) {
         em.persist(t);
         return t;
     }
@@ -79,7 +81,7 @@ public class BaseRepositoryImpl<ID extends Serializable, T extends IBaseEntity> 
      * @return 修改后的对象
      */
     @Override
-    public T saveOrUpdate(T t) {
+    public <T> T saveOrUpdate(T t) {
         return em.merge(t);
     }
 
@@ -91,11 +93,11 @@ public class BaseRepositoryImpl<ID extends Serializable, T extends IBaseEntity> 
      * 3）如果 A 是一个 removed 状态的实例，不会发生任何操作 ;
      * 4）如果 A 是一个 detached 状态的实体，该方法将会抛出异常。
      *
-     * @param t 删除的对象
+     * @param delObj 删除的对象
      */
     @Override
-    public void delete(T t) {
-        em.remove(em.merge(t));
+    public void delete(Object delObj) {
+        em.remove(em.merge(delObj));
     }
 
     /**
@@ -106,19 +108,19 @@ public class BaseRepositoryImpl<ID extends Serializable, T extends IBaseEntity> 
      * @return 唯一结果
      */
     @Override
-    public T findByPrimaryKey(Class<T> aClass, ID id) {
+    public <T> T findByPrimaryKey(Class<T> aClass, Object id) {
         return em.find(aClass, id);
     }
 
     /**
      * 是否包含某个对象
      *
-     * @param t 对象
+     * @param obj 对象
      * @return true为包含，false为不包含
      */
     @Override
-    public boolean contains(T t) {
-        return em.contains(t);
+    public boolean contains(Object obj) {
+        return em.contains(obj);
     }
 
     /**
@@ -222,11 +224,11 @@ public class BaseRepositoryImpl<ID extends Serializable, T extends IBaseEntity> 
      * 3）如果 A 是一个 removed 状态的实例，不会发生任何操作 ;
      * 4）如果 A 是一个 detached 状态的实体，该方法将会抛出异常
      *
-     * @param t 需要刷新的对象
+     * @param obj 需要刷新的对象
      */
     @Override
-    public void refresh(T t) {
-        em.refresh(t);
+    public void refresh(Object obj) {
+        em.refresh(obj);
     }
 
     /**

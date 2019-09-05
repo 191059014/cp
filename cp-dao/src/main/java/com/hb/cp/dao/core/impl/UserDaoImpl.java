@@ -1,8 +1,9 @@
 package com.hb.cp.dao.core.impl;
 
-import com.hb.cp.dao.base.BaseRepositoryImpl;
+import com.hb.cp.dao.base.IBaseRepository;
 import com.hb.cp.dao.core.IUserDao;
 import com.hb.cp.model.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,11 +14,14 @@ import org.springframework.stereotype.Repository;
  * @date 2019年09月02日 22时34分
  */
 @Repository
-public class UserDaoImpl extends BaseRepositoryImpl<String, User> implements IUserDao {
+public class UserDaoImpl implements IUserDao {
+
+    @Autowired
+    private IBaseRepository baseRepository;
 
     @Override
     public User addUser(User user) {
-        return findByPrimaryKey(User.class,user.getUserId());
+        return baseRepository.saveOrUpdate(user);
     }
 
 }
