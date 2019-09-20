@@ -3,6 +3,7 @@ server:
 spring:
   profiles:
       active: dev
+#################### MVC配置 ####################
   resources:
     static-locations: classpath:/static
   mvc:
@@ -10,6 +11,15 @@ spring:
     view:
       prefix: /view/
       suffix: .html
+#################### mybatis配置 ####################
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  config-location: classpath:mybatis-config.xml
+#################### mybatis配置 ####################
+logging:
+  level:
+    com.hb.cp.web: info
+  path: /cplog/
 
 
 
