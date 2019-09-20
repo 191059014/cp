@@ -3,6 +3,11 @@ server:
 spring:
   profiles:
       active: dev
+  application:
+    name: cp-web
+  main:
+    allow-bean-definition-overriding: true
+
 #################### MVC配置 ####################
   resources:
     static-locations: classpath:/static

@@ -1,4 +1,4 @@
-package com.hb.cp.web;
+package com.hb.cp.web.container;
 
 import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Bean;

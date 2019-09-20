@@ -1,4 +1,4 @@
-package com.hb.cp.web;
+package com.hb.cp.web.container;
 
 import org.apache.ibatis.annotations.Mapper;
 
