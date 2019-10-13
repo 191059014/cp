@@ -8,7 +8,7 @@ public class UserDO implements Serializable {
 
     private String userName;
 
-    private String userId;
+    private Integer userId;
 
     public String getUserName() {
         return userName;
@@ -18,11 +18,11 @@ public class UserDO implements Serializable {
         this.userName = userName;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

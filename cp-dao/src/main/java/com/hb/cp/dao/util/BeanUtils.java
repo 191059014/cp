@@ -17,6 +17,11 @@ import java.util.Map;
 public class BeanUtils {
 
     /**
+     * 序列化ID的属性名
+     */
+    private static final String SERIALVERSIONUID = "serialVersionUID";
+
+    /**
      * 将对象装换为map
      *
      * @param bean bean
@@ -31,7 +36,11 @@ public class BeanUtils {
             Field[] declaredFields = bean.getClass().getDeclaredFields();
             for (Field field : declaredFields) {
                 field.setAccessible(true);
-                map.put(field.getName(), field.get(bean));
+                String name = field.getName();
+                if (SERIALVERSIONUID.equals(name)) {
+                    continue;
+                }
+                map.put(name, field.get(bean));
             }
             return map;
         } catch (Exception e) {

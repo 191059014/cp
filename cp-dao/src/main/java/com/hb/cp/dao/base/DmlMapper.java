@@ -5,6 +5,7 @@ import com.hb.cp.dao.util.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,13 +18,138 @@ import java.util.Map;
 @Component
 public class DmlMapper {
 
+    /**
+     * mapper基类
+     */
     @Autowired
     private BaseMapper baseMapper;
 
-    public <T> T selectOne(String tableName, Class<T> entityClass, Map<String, Object> conditions) {
-        String sqlStatement = SqlHelper.buildSelectiveSql(tableName, conditions);
+    /**
+     * 查询唯一结果集
+     *
+     * @param tableName   表名
+     * @param entityClass 实体类
+     * @param conditions  条件
+     * @param sort        排序
+     * @return 唯一结果
+     */
+    public <T> T selectOne(String tableName, Class<T> entityClass, Map<String, Object> conditions, String sort) {
+        String sqlStatement = SqlHelper.buildSelectSelectiveSql(tableName, conditions, sort, null, null);
         Map<String, Object> result = baseMapper.selectOne(sqlStatement, conditions);
         return BeanUtils.mapToBean(result, entityClass);
+    }
+
+    /**
+     * 查询集合
+     *
+     * @param tableName   表名
+     * @param entityClass 实体类
+     * @param conditions  条件
+     * @param sort        排序
+     * @return 结果集合
+     */
+    public <T> List<T> selectList(String tableName, Class<T> entityClass, Map<String, Object> conditions, String sort) {
+        String sqlStatement = SqlHelper.buildSelectSelectiveSql(tableName, conditions, sort, null, null);
+        List<Map<String, Object>> result = baseMapper.selectList(sqlStatement, conditions);
+        return BeanUtils.mapsToBeans(result, entityClass);
+    }
+
+    /**
+     * 查询总条数
+     *
+     * @param tableName  表名
+     * @param conditions 条件
+     * @return 总条数
+     */
+    public <T> int selectCount(String tableName, Map<String, Object> conditions) {
+        String sqlStatement = SqlHelper.buildSelectCountSelectiveSql(tableName, conditions);
+        return baseMapper.selectCount(sqlStatement, conditions);
+    }
+
+    /**
+     * 分页查询集合
+     *
+     * @param tableName   表名
+     * @param entityClass 实体类
+     * @param conditions  条件
+     * @param sort        排序
+     * @param startRow    开始行数
+     * @param pageNum     每页数量
+     * @return 分页集合
+     */
+    public <T> List<T> selectPages(String tableName, Class<T> entityClass, Map<String, Object> conditions, String sort, Integer startRow, Integer pageNum) {
+        String sqlStatement = SqlHelper.buildSelectSelectiveSql(tableName, conditions, sort, startRow, pageNum);
+        List<Map<String, Object>> result = baseMapper.selectPages(sqlStatement, conditions, startRow, pageNum);
+        return BeanUtils.mapsToBeans(result, entityClass);
+    }
+
+    /**
+     * 动态查询
+     *
+     * @param tableName   表名
+     * @param entityClass 实体类
+     * @param conditions  条件
+     * @param sort        排序
+     * @return 结果集合
+     */
+    public <T> List<T> dynamicSelect(String tableName, Class<T> entityClass, Map<String, Object> conditions, String sort) {
+        String sqlStatement = SqlHelper.buildSelectSelectiveSql(tableName, conditions, sort, null, null);
+        List<Map<String, Object>> result = baseMapper.selectList(sqlStatement, conditions);
+        return BeanUtils.mapsToBeans(result, entityClass);
+    }
+
+    /**
+     * 选择性插入
+     *
+     * @param tableName 表名
+     * @param entity    实体类对象
+     * @return 插入行数
+     */
+    public <T> int insertBySelective(String tableName, T entity) {
+        if (entity == null) {
+            return 0;
+        }
+        Map<String, Object> property = BeanUtils.beanToMap(entity);
+        if (property == null || property.isEmpty()) {
+            return 0;
+        }
+        String sqlStatement = SqlHelper.buildInsertSelectiveSql(tableName, property);
+        return baseMapper.insertSelective(sqlStatement, property);
+    }
+
+    /**
+     * 选择性更新
+     *
+     * @param tableName  表名
+     * @param entity     实体类对象
+     * @param conditions 条件
+     * @return 更新行数
+     */
+    public <T> int updateBySelective(String tableName, T entity, Map<String, Object> conditions) {
+        if (conditions == null || conditions.isEmpty()) {
+            return 0;
+        }
+        Map<String, Object> property = BeanUtils.beanToMap(entity);
+        if (property == null || property.isEmpty()) {
+            return 0;
+        }
+        String sqlStatement = SqlHelper.buildUpdateSelectiveSql(tableName, property, conditions);
+        return baseMapper.updateSelectiveByPrimaryKey(sqlStatement, property, conditions);
+    }
+
+    /**
+     * 选择性删除
+     *
+     * @param tableName  表名
+     * @param conditions 条件
+     * @return 删除行数
+     */
+    public int deleteBySelective(String tableName, Map<String, Object> conditions) {
+        if (conditions == null || conditions.isEmpty()) {
+            return 0;
+        }
+        String sqlStatement = SqlHelper.buildDeleteSelectiveSql(tableName, conditions);
+        return baseMapper.deleteBySelective(sqlStatement, conditions);
     }
 
 }

@@ -9,8 +9,8 @@ package com.hb.cp.model.enumutil;
  */
 public enum RecordStateEnum {
 
-    valid(1, "有效"),
-    invalid(0, "无效");
+    VALID(1, "有效"),
+    INVALID(0, "无效");
 
     private Integer value;
     private String name;

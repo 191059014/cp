@@ -2,7 +2,6 @@ package com.hb.cp.api.core.impl;
 
 import com.hb.cp.api.core.IUserService;
 import com.hb.cp.dao.base.DmlMapper;
-import com.hb.cp.dao.mapper.UserMapper;
 import com.hb.cp.model.model.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +13,16 @@ import java.util.Map;
 public class UserServiceImpl implements IUserService {
 
     @Autowired
-    UserMapper userMapper;
-
-    @Autowired
     private DmlMapper dmlMapper;
 
     @Override
     public UserDO findById(String userId) {
         Map<String, Object> conditions = new HashMap<>();
-        conditions.put("userId", userId);
-        return dmlMapper.selectOne("t_user", UserDO.class, conditions);
+//        conditions.put("userId", "1");
+//        conditions.put("userName", "huangbiao");
+//        UserDO userDO = new UserDO();
+//        userDO.setUserName("lisi");
+        System.out.println(dmlMapper.selectPages("t_user",UserDO.class, conditions,"userId desc",0,1));
+        return null;
     }
 }
