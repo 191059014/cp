@@ -94,7 +94,7 @@ public class DmlMapper {
      */
     public <T> List<T> dynamicSelect(String tableName, Class<T> entityClass, Map<String, Object> conditions, String sort) {
         String sqlStatement = SqlHelper.buildSelectSelectiveSql(tableName, conditions, sort, null, null);
-        List<Map<String, Object>> result = baseMapper.selectList(sqlStatement, conditions);
+        List<Map<String, Object>> result = baseMapper.dynamicSelect(sqlStatement, conditions);
         return BeanUtils.mapsToBeans(result, entityClass);
     }
 
