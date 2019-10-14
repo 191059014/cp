@@ -84,16 +84,14 @@ public class DmlMapper {
     }
 
     /**
-     * 动态查询
+     * 自定义sql语句动态查询
      *
-     * @param tableName   表名
-     * @param entityClass 实体类
-     * @param conditions  条件
-     * @param sort        排序
+     * @param sqlStatement sql语句
+     * @param entityClass  实体类
+     * @param conditions   条件
      * @return 结果集合
      */
-    public <T> List<T> dynamicSelect(String tableName, Class<T> entityClass, Map<String, Object> conditions, String sort) {
-        String sqlStatement = SqlHelper.buildSelectSelectiveSql(tableName, conditions, sort, null, null);
+    public <T> List<T> dynamicSelect(String sqlStatement, Class<T> entityClass, Map<String, Object> conditions) {
         List<Map<String, Object>> result = baseMapper.dynamicSelect(sqlStatement, conditions);
         return BeanUtils.mapsToBeans(result, entityClass);
     }
