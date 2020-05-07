@@ -1,8 +1,8 @@
 package com.hb.cp.api.core.impl;
 
 import com.hb.cp.api.core.IUserService;
-import com.hb.cp.dao.base.DmlMapper;
 import com.hb.cp.model.model.UserDO;
+import com.hb.mybatis.base.DmlMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

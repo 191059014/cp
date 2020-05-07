@@ -23,6 +23,12 @@
     <dependencies>
 
         <dependency>
+            <groupId>com.hb.mybatis</groupId>
+            <artifactId>simple-mybatis</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.hb.cp</groupId>
             <artifactId>cp-model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
