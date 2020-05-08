@@ -22,7 +22,7 @@ public class UserServiceImpl implements IUserService {
 //        conditions.put("userName", "huangbiao");
 //        UserDO userDO = new UserDO();
 //        userDO.setUserName("lisi");
-        System.out.println(dmlMapper.selectPages("t_user",UserDO.class, conditions,"userId desc",0,1));
+//        System.out.println(dmlMapper.selectPages("t_user",UserDO.class, conditions,"userId desc",0,1));
         return null;
     }
 }

@@ -1,13 +1,16 @@
 package com.hb.cp.web.controller;
 
 import com.google.common.collect.Maps;
-import com.hb.cp.model.model.WfpGlobalConfigDO;
+import com.hb.cp.web.model.PermissionDO;
 import com.hb.mybatis.base.DmlMapper;
+import com.hb.mybatis.helper.QueryCondition;
+import com.hb.mybatis.helper.QueryType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,7 +30,9 @@ public class WfpController {
     @GetMapping("/test")
     public void test() {
         HashMap<String, Object> condition = Maps.newHashMap();
-        List<WfpGlobalConfigDO> list = dmlMapper.selectList("wfp_global_config", WfpGlobalConfigDO.class, condition, " gmt_Create desc");
+        QueryCondition query = QueryCondition.build("t_permission")
+                .addCondition(QueryType.LIKE, "permissionValue", "sys");
+        List<PermissionDO> list = dmlMapper.dynamicSelect(PermissionDO.class, query);
         System.out.println(list);
     }
 
