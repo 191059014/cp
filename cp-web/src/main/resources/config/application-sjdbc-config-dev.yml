@@ -24,9 +24,9 @@ sharding:
       ds0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://172.30.61.11:3306/wfpserverdb?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
-        username: wfpserver
-        password: wfpserver
+        url: jdbc:mysql://192.168.181.128:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: root3306
         initialSize: ${initialSize}
         minIdle: ${minIdle}
         maxActive: ${maxActive}
