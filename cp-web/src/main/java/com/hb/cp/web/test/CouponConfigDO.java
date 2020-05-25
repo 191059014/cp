@@ -1,5 +1,7 @@
 package com.hb.cp.web.test;
 
+import com.hb.mybatis.annotation.Table;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,6 +11,7 @@ import java.util.Date;
  * @author Mr.huang
  * @since 2020/4/9 10:23
  */
+@Table("coupons_config")
 public class CouponConfigDO implements Serializable {
     // the serial ID
     private static final long serialVersionUID = 8076838782242940019L;
