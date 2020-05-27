@@ -3,15 +3,13 @@ package com.hb.cp.web.test;
 import com.hb.mybatis.base.DmlMapper;
 import com.hb.mybatis.helper.QueryCondition;
 import com.hb.mybatis.helper.QueryType;
-import com.hb.unic.util.build.MapBuilder;
+import com.hb.mybatis.helper.WhereCondition;
+import com.hb.mybatis.model.PagesResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 用来测试的controller
@@ -33,12 +31,10 @@ public class TestController {
     public void testQuery() {
         QueryCondition query = QueryCondition.build()
                 .addCondition(QueryType.LIKE, "couponName", "优惠券")
-                .orderBy("gmtCreate desc");
-        List<CouponConfigDO> list = dmlMapper.dynamicSelect(CouponConfigDO.class, query);
-        for (CouponConfigDO couponConfigDO : list) {
-            System.out.println(couponConfigDO);
-        }
-        System.out.println(list.size());
+                .orderBy("gmtCreate desc")
+                .limit(0,3);
+        PagesResult<CouponConfigDO> pagesResult = dmlMapper.selectPages(CouponConfigDO.class, query);
+        System.out.println(pagesResult);
     }
 
     @GetMapping("/testInsert")
@@ -47,6 +43,7 @@ public class TestController {
         String timestamp = String.valueOf(System.currentTimeMillis());
         t.setBoxId(timestamp);
         t.setCouponName("优惠券测试" + timestamp);
+        t.setCouponLedUrl("http://www.baidu.com");
         int updateRows = dmlMapper.insertBySelective(t);
         System.out.println("影响行数：" + updateRows);
     }
@@ -57,16 +54,19 @@ public class TestController {
         String timestamp = String.valueOf(System.currentTimeMillis());
         t.setBoxId(timestamp);
         t.setCouponName("优惠券测试" + timestamp);
-        Map<String, Object> map = MapBuilder.build().add("id", 12).get();
-        int updateRows = dmlMapper.updateBySelective(t, map);
+        t.setCouponImgUrl("imageurl");
+        WhereCondition whereCondition = WhereCondition.build()
+                .addCondition(QueryType.EQUALS, "id", 12);
+        int updateRows = dmlMapper.updateBySelective(t, whereCondition);
         System.out.println("影响行数：" + updateRows);
     }
 
     @GetMapping("/testDelete")
     public void testDelete() {
-        CouponConfigDO t = new CouponConfigDO();
-        t.setId(12);
-        dmlMapper.deleteBySelective(t);
+        WhereCondition whereCondition = WhereCondition.build()
+                .addCondition(QueryType.EQUALS, "id", 12);
+        int updateRows = dmlMapper.deleteBySelective(CouponConfigDO.class, whereCondition);
+        System.out.println("影响行数：" + updateRows);
     }
 
 }

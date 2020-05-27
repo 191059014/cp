@@ -1,5 +1,6 @@
 package com.hb.cp.web.test;
 
+import com.hb.mybatis.annotation.Column;
 import com.hb.mybatis.annotation.Table;
 
 import java.io.Serializable;
@@ -36,8 +37,10 @@ public class CouponConfigDO implements Serializable {
     // 失效时间
     private String expireTime;
     // 优惠券领取长链接
+    @Column("coupon_led_url")
     private String couponLedUrl;
     // 优惠券图片地址
+    @Column("coupon_img_url")
     private String couponImgUrl;
     /**
      * 预留字段
